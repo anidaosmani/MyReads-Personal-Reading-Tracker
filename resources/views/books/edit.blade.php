@@ -1,71 +1,174 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Edit Book
-        </h2>
-    </x-slot>
+<!DOCTYPE html>
 
-    <div class="py-12">
-        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6">
+<html>
+<head>
+    <title>Edit Book</title>
 
-                @if($errors->any())
-                    <div class="mb-4 text-red-600 text-sm">
-                        <ul>@foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul>
-                    </div>
-                @endif
+```
+<style>
 
-                <form method="POST" action="{{ route('books.update', $book) }}" class="space-y-4">
-                    @csrf
-                    @method('PUT')
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:Arial,sans-serif;
+    }
 
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Title *</label>
-                        <input type="text" name="title" value="{{ old('title', $book->title) }}"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white">
-                    </div>
+    body{
+        background:#f4f6f9;
+    }
 
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Author *</label>
-                        <input type="text" name="author" value="{{ old('author', $book->author) }}"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white">
-                    </div>
+    nav{
+        background:white;
+        padding:20px 60px;
+        box-shadow:0 2px 10px rgba(0,0,0,0.1);
+    }
 
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Genre</label>
-                        <input type="text" name="genre" value="{{ old('genre', $book->genre) }}"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white">
-                    </div>
+    .logo{
+        font-size:28px;
+        font-weight:bold;
+        color:#2563eb;
+    }
 
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Status</label>
-                        <select name="status" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:text-white">
-                            <option value="Want To Read" {{ old('status', $book->status) === 'Want To Read' ? 'selected' : '' }}>Want To Read</option>
-                            <option value="Currently Reading" {{ old('status', $book->status) === 'Currently Reading' ? 'selected' : '' }}>Currently Reading</option>
-                            <option value="Finished" {{ old('status', $book->status) === 'Finished' ? 'selected' : '' }}>Finished</option>
-                        </select>
-                    </div>
+    .container{
+        display:flex;
+        justify-content:center;
+        margin-top:50px;
+    }
 
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Rating (1-10)</label>
-                        <input type="number" name="rating" min="1" max="10" value="{{ old('rating', $book->rating) }}"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:text-white">
-                    </div>
+    .card{
+        background:white;
+        width:600px;
+        padding:35px;
+        border-radius:15px;
+        box-shadow:0 4px 20px rgba(0,0,0,0.08);
+    }
 
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Review</label>
-                        <textarea name="review" rows="3"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:text-white">{{ old('review', $book->review) }}</textarea>
-                    </div>
+    h1{
+        text-align:center;
+        margin-bottom:25px;
+        color:#1e293b;
+    }
 
-                    <div class="flex gap-3">
-                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
-                            Update Book
-                        </button>
-                        <a href="{{ route('books.index') }}" class="text-gray-600 hover:underline py-2">Cancel</a>
-                    </div>
-                </form>
-            </div>
-        </div>
+    input,
+    select,
+    textarea{
+        width:100%;
+        padding:12px;
+        margin-top:8px;
+        margin-bottom:18px;
+        border:1px solid #d1d5db;
+        border-radius:8px;
+    }
+
+    textarea{
+        height:120px;
+    }
+
+    button{
+        width:100%;
+        background:#2563eb;
+        color:white;
+        border:none;
+        padding:14px;
+        border-radius:8px;
+        font-size:16px;
+        cursor:pointer;
+    }
+
+    .back{
+        text-decoration:none;
+        color:#2563eb;
+        display:block;
+        margin-bottom:20px;
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">
+        📚 MyReads
     </div>
-</x-app-layout>
+</nav>
+
+<div class="container">
+
+```
+<div class="card">
+
+    <a href="/books" class="back">
+        ← Back to Books
+    </a>
+
+    <h1>Edit Book</h1>
+
+    <form method="POST"
+          action="{{ route('books.update',$book) }}">
+
+        @csrf
+        @method('PUT')
+
+        <label>Title</label>
+        <input type="text"
+               name="title"
+               value="{{ $book->title }}"
+               required>
+
+        <label>Author</label>
+        <input type="text"
+               name="author"
+               value="{{ $book->author }}"
+               required>
+
+        <label>Genre</label>
+        <input type="text"
+               name="genre"
+               value="{{ $book->genre }}"
+               required>
+
+        <label>Status</label>
+
+        <select name="status">
+
+            <option value="Want To Read" {{ $book->status == 'Want To Read' ? 'selected' : '' }}>
+                Want To Read
+            </option>
+
+            <option value="Currently Reading" {{ $book->status == 'Currently Reading' ? 'selected' : '' }}>
+                Currently Reading
+            </option>
+
+            <option value="Finished" {{ $book->status == 'Finished' ? 'selected' : '' }}>
+                Finished
+            </option>
+
+        </select>
+
+        <label>Rating</label>
+        <input type="number"
+               min="1"
+               max="5"
+               name="rating"
+               value="{{ $book->rating }}">
+
+        <label>Review</label>
+        <textarea name="review">{{ $book->review }}</textarea>
+
+        <button type="submit">
+            Update Book
+        </button>
+
+    </form>
+
+</div>
+```
+
+</div>
+
+</body>
+</html>
