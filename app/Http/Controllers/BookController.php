@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class BookController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
         $books = auth()->user()->books;
@@ -55,7 +58,6 @@ class BookController extends Controller
         ]);
 
         $book->update($validated);
-
         return redirect()->route('books.index')->with('success', 'Book updated!');
     }
 
@@ -63,7 +65,6 @@ class BookController extends Controller
     {
         $this->authorize('delete', $book);
         $book->delete();
-
         return redirect()->route('books.index')->with('success', 'Book deleted!');
     }
 }
