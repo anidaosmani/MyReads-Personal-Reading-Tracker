@@ -1,0 +1,37 @@
+<h1>My Books</h1>
+
+<a href="{{ route('books.create') }}">
+    Add Book
+</a>
+
+@foreach($books as $book)
+
+<div>
+
+    <h3>{{ $book->title }}</h3>
+
+    <p>{{ $book->author }}</p>
+
+    <p>{{ $book->genre }}</p>
+
+    <p>{{ $book->status }}</p>
+
+    <a href="{{ route('books.edit',$book) }}">
+        Edit
+    </a>
+
+    <form method="POST"
+          action="{{ route('books.destroy',$book) }}">
+
+        @csrf
+        @method('DELETE')
+
+        <button>
+            Delete
+        </button>
+
+    </form>
+
+</div>
+
+@endforeach
