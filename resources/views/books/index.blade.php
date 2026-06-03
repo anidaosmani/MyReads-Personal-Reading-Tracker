@@ -114,6 +114,20 @@
             font-size:20px;
         }
 
+        .search-bar{
+            width:100%;
+            padding:12px 18px;
+            font-size:16px;
+            border:2px solid #e2e8f0;
+            border-radius:10px;
+            margin-bottom:25px;
+            outline:none;
+        }
+
+        .search-bar:focus{
+            border-color:#2563eb;
+        }
+
     </style>
 </head>
 
@@ -178,7 +192,15 @@ margin-bottom:30px;
 
     @if($books->count())
 
-    <div class="books">
+    <input
+        type="text"
+        id="searchInput"
+        class="search-bar"
+        placeholder="🔍 Search by title or author..."
+        onkeyup="filterBooks()"
+    >
+
+    <div class="books" id="booksGrid">
 
         @foreach($books as $book)
 
@@ -238,6 +260,18 @@ margin-bottom:30px;
     @endif
 
 </div>
+
+<script>
+    function filterBooks(){
+        var query = document.getElementById('searchInput').value.toLowerCase();
+        var cards = document.querySelectorAll('#booksGrid .card');
+        cards.forEach(function(card){
+            var title  = card.querySelector('h2').textContent.toLowerCase();
+            var author = card.querySelector('p').textContent.toLowerCase();
+            card.style.display = (title.includes(query) || author.includes(query)) ? '' : 'none';
+        });
+    }
+</script>
 
 </body>
 </html>
