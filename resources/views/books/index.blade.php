@@ -126,8 +126,24 @@
     </div>
 
     <a href="/books/create" class="add-btn">
-        + Add Book
-    </a>
+    + Add Book
+</a>
+
+<form method="POST" action="{{ route('logout') }}" style="display:inline;">
+    @csrf
+    <button type="submit" style="
+        background:#ef4444;
+        color:white;
+        border:none;
+        padding:12px 20px;
+        border-radius:8px;
+        cursor:pointer;
+        font-size:16px;
+        margin-left:10px;
+    ">
+        Log Out
+    </button>
+</form>
 
 </nav>
 
