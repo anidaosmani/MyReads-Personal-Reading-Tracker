@@ -1,0 +1,84 @@
+{
+  "info": {
+    "_postman_id": "3395891a-07a5-4518-8440-497a2283711a",
+    "name": "MyReads",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55443263",
+    "_collection_link": "https://go.postman.co/collection/55443263-3395891a-07a5-4518-8440-497a2283711a?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get all Books",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/books",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "books"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add Book",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"title\": \"Test Book\",\r\n    \"author\": \"Test Author\",\r\n    \"genre\": \"Fiction\",\r\n    \"status\": \"Want To Read\",\r\n    \"rating\": 5,\r\n    \"review\": \"Great!\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/books",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "books"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Book",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"title\": \"Test Book\",\r\n    \"author\": \"Test Author\",\r\n    \"genre\": \"Fiction\",\r\n    \"status\": \"Want To Read\",\r\n    \"rating\": 5,\r\n    \"review\": \"Great!\"\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/books",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "books"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
