@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Task</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 80%;
+      margin: 50px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    input {
+      padding: 10px;
+      width: 60%;
+      margin: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #444;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Welcome to My Website</h1>
+
+    <p>Enter your name:</p>
+
+    <input type="text" id="nameInput" placeholder="Your name">
+
+    <br>
+
+    <button onclick="showName()">Submit</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function showName() {
+      let name = document.getElementById("nameInput").value;
+
+      if (name === "") {
+        document.getElementById("result").innerHTML = "Please enter your name.";
+        return;
+      }
+
+      document.getElementById("result").innerHTML =
+        "Hello, " + name + "!";
+    }
+
+    // Calculate the average score
+    function calculateAverage() {
+      let scores = [80, 90, 70];
+      let total = 0;
+
+      for (let i = 0; i <= scores.length; i++) {
+        total += scores[i];
+      }
+
+      return total / scores.length;
+    }
+
+    console.log("Average:", calculateAverage());
+  </script>
+
+</body>
+</html>
